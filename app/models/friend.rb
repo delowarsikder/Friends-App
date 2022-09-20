@@ -1,5 +1,11 @@
 class Friend < ApplicationRecord
+    
+    ##association
+    
     belongs_to:user
+
+
+
     ###add vaildation phone
     validates:Phone, format: { with:/((\+(88)){1})?((01){1})([3-9]{1}\d{8})\b/, message: "only bd phone number" }
     # another ###((\+)88)?(01)([3-9]\d{8})\b

@@ -1,0 +1,14 @@
+div class="card"
+
+  div class="card-header"
+    h1 Add New friend
+  
+  div class="card-body"
+    = render "form", friend: @friend 
+
+    br
+
+    div
+      = link_to "Back", friends_path, class:"btn btn-dark"
+
+

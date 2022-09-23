@@ -1,12 +1,14 @@
 class FriendsController < ApplicationController
-  before_action :set_friend, only: %i[ show edit update destroy ]
-  before_action:authenticate_user!,except:[:index, :show]
-  # before_action:correct_user,only:[:edit,:update,:destroy]
 
+  before_action :set_friend, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /friends or /friends.json
   def index
-    @friends = Friend.all
+    #TO-DO:this code is needed to show get all friends
+    # @friends = Friend.all
+    @friends = current_user.friends   ##show only login user friend list
+    
   end
 
   # GET /friends/1 or /friends/1.json
@@ -16,8 +18,6 @@ class FriendsController < ApplicationController
   # GET /friends/new
   def new
     @friend = Friend.new
-    # @friend=correct_user.friends.build ###added by myself
-
   end
 
   # GET /friends/1/edit
@@ -27,7 +27,6 @@ class FriendsController < ApplicationController
   # POST /friends or /friends.json
   def create
     @friend = Friend.new(friend_params)
-    # @friend=correct_user.friends.build(friend_params) ###added by myself
 
     respond_to do |format|
       if @friend.save
@@ -62,15 +61,6 @@ class FriendsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-#####get error --->when call this fuction
-  # def correct_user
-  #   @friend=current_user.friends.find_by(id: params[:id])
-  #   redirect_to friends_path,notice:"No Authorize acess!" if @friend.nil?
-  # end
-
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
